@@ -3,9 +3,20 @@ import createDataContext from './createDataContext';
 const shoppingListReducer = (state, action) => {
   switch (action.type) {
     case 'add_item':
-      return { ...state, pendingItems: action.payload };
+      return {
+        ...state,
+        pendingItems: [...state.pendingItems, action.payload],
+      };
+    case 'Search_item':
+      return {
+        ...state,
+        searchedItems: state.pendingItems.filter((e) =>
+          e.item.includes(action.payload)
+        ),
+      };
     case 'sendTopending':
       return {
+        ...state,
         crossedOffItems: state.crossedOffItems.filter(
           (item) => item.id !== action.payload.id
         ),
@@ -13,10 +24,19 @@ const shoppingListReducer = (state, action) => {
       };
     case 'crossOff':
       return {
+        ...state,
         pendingItems: state.pendingItems.filter(
           (item) => item.id !== action.payload.id
         ),
         crossedOffItems: [...state.crossedOffItems, action.payload],
+      };
+    case 'editItem':
+      let index = state.pendingItems.findIndex(
+        (e) => e.id === action.payload.id
+      );
+      state.pendingItems[index] = action.payload;
+      return {
+        ...state,
       };
     default:
       return state;
@@ -39,8 +59,33 @@ const crossOff = (dispatch) => (data) => {
   });
 };
 
+const editItem = (dispatch) => (data) => {
+  dispatch({ type: 'editItem', payload: data });
+};
+
+const searchItem = (dispatch) => (data) => {
+  dispatch({
+    type: 'Search_item',
+    payload: data,
+  });
+};
+
 export const { Context, Provider } = createDataContext(
   shoppingListReducer,
-  { addItem, sendToPending, crossOff },
-  { pendingItems: [], crossedOffItems: [] }
+  { addItem, sendToPending, crossOff, searchItem, editItem },
+  {
+    pendingItems: [
+      { id: 1, item: 'Bread', category: 'FOOD', quantity: 1, amount: 4 },
+    ],
+    crossedOffItems: [
+      {
+        id: 2,
+        item: 'Bedsheets',
+        category: 'Aesthetics',
+        quantity: 1,
+        amount: 40,
+      },
+    ],
+    searchedItems: [],
+  }
 );

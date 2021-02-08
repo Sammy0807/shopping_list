@@ -21,7 +21,7 @@ body {
 
 .container {
   margin: 30px auto;
-  width: 350px;
+  width: 500px;
 }
 
 h1 {
@@ -89,7 +89,7 @@ input[type='number'] {
 
 .btn {
   cursor: pointer;
-  background-color: #9c88ff;
+  background-color: #3083b3;
   box-shadow: var(--box-shadow);
   color: #fff;
   border: 0;
@@ -97,7 +97,18 @@ input[type='number'] {
   font-size: 16px;
   margin: 10px 0 30px;
   padding: 10px;
-  width: 100%;
+  width: 25%;
+  float: right;
+}
+.topSpacer {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.list .right {
+  float: right;
 }
 
 .btn:focus,
@@ -108,7 +119,8 @@ input[type='number'] {
 .list {
   list-style-type: none;
   padding: 0;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .list li {
@@ -124,10 +136,6 @@ input[type='number'] {
 
 .list li.plus {
   border-right: 5px solid #2ecc71;
-}
-
-.list li.minus {
-  border-right: 5px solid #c0392b;
 }
 
 .delete-btn {
@@ -148,4 +156,34 @@ input[type='number'] {
 
 .list li:hover .delete-btn {
   opacity: 1;
+}
+.edit-btn {
+  cursor: pointer;
+  background-color: #3ce759;
+  border: 0;
+  color: #fff;
+  font-size: 20px;
+  line-height: 20px;
+  padding: 2px 5px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+
+  transform: translate(-100%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.list li:hover .edit-btn {
+  opacity: 1;
+}
+
+.divider {
+  border-left: 1px solid #38546d;
+  background: #16222c;
+  width: 1px;
+  height: 80px;
+  right: 250px;
+  margin: 50px;
+  justify-content: center;
+  align-items: center;
 }
