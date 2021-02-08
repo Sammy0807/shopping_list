@@ -36,7 +36,7 @@ const EditItem = ({ data }) => {
       />
       <input
         type="text"
-        value={category}
+        value={data.category}
         onChange={(e) => setCategoty(e.target.value)}
       />
       <input

@@ -9,7 +9,9 @@ const ShoppingList = () => {
     crossOff,
     sendToPending,
   } = useContext(ShoppingContext);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(
+    Arr(pendingItems.map((e) => e.category))
+  );
 
   useEffect(() => {
     setCategories(Arr(pendingItems.map((e) => e.category)));
@@ -37,6 +39,7 @@ const ShoppingList = () => {
         )}
       </ul>
       <div className="divider"></div>
+
       <ul className="list right">
         <h4>Crossed Off Section</h4>
         {crossedOffItems.length > 0 ? (
