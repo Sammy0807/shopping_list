@@ -8,12 +8,12 @@ const shoppingListReducer = (state, action) => {
         pendingItems: [...state.pendingItems, action.payload],
       };
     case 'Search_item':
-      state.searchedItems = [...state.pendingItems];
       return {
         ...state,
-        searchedItems: state.searchedItems.filter((e) =>
-          e.item.includes(action.payload)
-        ),
+        pendingItems: [
+          ...state.pendingItems,
+          state.pendingItems.filter((e) => e.item.includes(action.payload)),
+        ],
       };
     case 'sendTopending':
       return {
@@ -87,6 +87,5 @@ export const { Context, Provider } = createDataContext(
         amount: 40,
       },
     ],
-    searchedItems: [],
   }
 );
