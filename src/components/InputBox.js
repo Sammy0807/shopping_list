@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Context as ShoppingContext } from '../context/shoppingContext';
 
 const InputBox = () => {
-  const { addItem } = useContext(ShoppingContext);
+  const { addItem, searchItem } = useContext(ShoppingContext);
   const [item, setItem] = useState('');
   const [category, setCategoty] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -21,9 +21,11 @@ const InputBox = () => {
     setCategoty('');
     setQuantity('');
     setAmount('');
+    searchItem('');
   };
   const onchange = (e) => {
     setItem(e);
+    searchItem(e);
   };
   return (
     <>

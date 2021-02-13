@@ -5,17 +5,23 @@ import { Context as ShoppingContext } from '../context/shoppingContext';
 
 const ShoppingList = () => {
   const {
-    state: { pendingItems, crossedOffItems },
+    state: { pendingItems, crossedOffItems, filteredString },
     crossOff,
     sendToPending,
   } = useContext(ShoppingContext);
   const [categories, setCategories] = useState(
     Arr(pendingItems.map((e) => e.category))
   );
-
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [items, setItems] = useState([]);
   useEffect(() => {
-    setCategories(Arr(pendingItems.map((e) => e.category)));
-  }, [pendingItems]);
+    setItems(pendingItems);
+    setFilteredItems(items);
+    setCategories(Arr(items.map((e) => e.category)));
+  }, [items, pendingItems]);
+  useEffect(() => {
+    setFilteredItems(items.filter((e) => e.item.includes(filteredString)));
+  }, [filteredString, items]);
 
   return (
     <div className="topSpacer">
@@ -25,7 +31,7 @@ const ShoppingList = () => {
           categories.map((category, index) => (
             <div key={index}>
               <h2>{category}</h2>
-              {pendingItems.map((element, index) => (
+              {filteredItems.map((element, index) => (
                 <div key={index}>
                   {element.category === category ? (
                     <ListItem data={element} sendTo={crossOff} />

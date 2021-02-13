@@ -10,10 +10,7 @@ const shoppingListReducer = (state, action) => {
     case 'Search_item':
       return {
         ...state,
-        pendingItems: [
-          ...state.pendingItems,
-          state.pendingItems.filter((e) => e.item.includes(action.payload)),
-        ],
+        filteredString: action.payload,
       };
     case 'sendTopending':
       return {
@@ -69,6 +66,7 @@ const searchItem = (dispatch) => (data) => {
     type: 'Search_item',
     payload: data,
   });
+  return data;
 };
 
 export const { Context, Provider } = createDataContext(
@@ -87,5 +85,6 @@ export const { Context, Provider } = createDataContext(
         amount: 40,
       },
     ],
+    filteredString: '',
   }
 );
